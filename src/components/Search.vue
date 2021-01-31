@@ -33,19 +33,17 @@ export default defineComponent({
 
   methods: {
     handleFormSubmit: async function () {
+      console.log(import.meta.env);
       try {
-        const url = new URL("https://api.si.edu/openaccess/api/v1.0/search");
-
-        url.searchParams.append("q", this.searchTerm);
-        url.searchParams.append(
-          "api_key",
-          import.meta.env.VITE_API_KEY as string
+        const url = new URL(
+          `${import.meta.env.VITE_SERVICE_URL as string}/images`
         );
 
-        await fetch(url.toString())
+        url.searchParams.append("q", this.searchTerm);
+
+        await fetch(url.toString(), { mode: "cors" })
           .then((response) => response.json())
           .then((data) => {
-            console.log(data.response.rows);
             this.response = data.response.rows;
           });
       } catch (err) {
