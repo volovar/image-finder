@@ -14,7 +14,6 @@
 
 <script lang="ts">
 import { ref, defineComponent } from "vue";
-import axios from "axios";
 
 export default defineComponent({
   name: "Search",
@@ -36,46 +35,17 @@ export default defineComponent({
     handleFormSubmit: async function () {
       console.log(import.meta.env);
       try {
-        // const url = new URL("https://api.si.edu/openaccess/api/v1.0/search");
-
-        // url.searchParams.append("q", this.searchTerm);
-        // url.searchParams.append(
-        //   "api_key",
-        //   import.meta.env.VITE_API_KEY as string
-        // );
-
-        // await fetch(url.toString())
-        //   .then((response) => response.json())
-        //   .then((data) => {
-        //     console.log(data.response.rows);
-        //     this.response = data.response.rows;
-        //   });
         const url = new URL(
           `${import.meta.env.VITE_SERVICE_URL as string}/images`
         );
-        // console.log(url);
 
         url.searchParams.append("q", this.searchTerm);
 
         await fetch(url.toString(), { mode: "cors" })
           .then((response) => response.json())
           .then((data) => {
-            console.log(data.response.rows);
             this.response = data.response.rows;
           });
-
-        // await axios.get(
-        //   `${import.meta.env.VITE_SERVICE_URL as string}/images`,
-        //   {
-        //     headers: {
-        //       "Access-Control-Allow-Origin": "*",
-        //       "Access-Control-Allow-Headers":
-        //         "Origin, X-Requested-With, Content-Type, Accept",
-        //       Origin: "localhost",
-        //     },
-        //     params: { q: this.searchTerm },
-        //   }
-        // );
       } catch (err) {
         console.error(err);
       }

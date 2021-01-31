@@ -2,10 +2,15 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
+export default defineConfig({
   plugins: [vue()],
 
-  chokidarWatchOptions: {
-    usePolling: true
+  server: {
+    proxy: {
+      "/images": "http://localhost:9010/images"
+    },
+    watch: {
+      usePolling: true
+    }
   }
-}));
+});
