@@ -7,10 +7,11 @@ export default defineConfig({
 
   server: {
     proxy: {
-      "/images": "http://localhost:9010/images"
+      "/images": "http://localhost:9010/images",
+      "/api": "http://localhost:9010",
     },
     watch: {
-      usePolling: true
-    }
-  }
+      usePolling: true,
+    },
+  },
 });
